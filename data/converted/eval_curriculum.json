@@ -1,0 +1,294 @@
+﻿[
+    {
+        "id":  "eval:def/geometry-vs-epistemic",
+        "instruction":  "Explain when to use GEOMETRY vs EPISTEMIC for line-of-sight in RP-Lang.",
+        "input":  "",
+        "output":  "Use GEOMETRY to describe spatial layout and occluders (walls, distances, containment) that make line-of-sight possible or blocked. Use EPISTEMIC to capture what an agent actually knows: EPISTEMIC(agent sees target, radius=30, blocked_by=walls). Geometry encodes structure; Epistemic encodes sensed knowledge over that structure.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "geometry",
+                                      "epistemic",
+                                      "definition"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:translate/warehouse-robot",
+        "instruction":  "Translate this warehouse scenario into RP relations.",
+        "input":  "A robot picks up one package at a time, senses beacons within 15 units, cannot enter the hazard zone, and must stay inside 0–400 by 0–400. It loses 1 energy per tick and recharges at the dock when energy \u003c 5.",
+        "output":  "Entities: Robot r, Beacons b*, Hazard h, Dock d. Relations: EPISTEMIC(r senses b, radius=15); ONTOLOGY(h, kind=Zone); GEOMETRY(r avoids h, exclusion=True); CONSTRAINT(r, bounds=[0,0,400,400]); DYNAMICS(r, energy_drain=1, recharge_at=d, recharge_trigger_energy=5); CONSTRAINT(r, carrying_capacity=1); ONTOLOGY(b, kind=Beacon); ONTOLOGY(d, kind=Dock).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "translation",
+                                      "epistemic",
+                                      "geometry",
+                                      "constraint",
+                                      "dynamics",
+                                      "ontology"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:evaluator/resource-timer",
+        "instruction":  "Run one evaluator step for a resource regrow timer.",
+        "input":  "Entities: Resource r at (20,20), active=False, regrow_counter=3. Relations: DYNAMICS(r, regrow_after=5); CONSTRAINT(r, consumed_when_near=True). No agents nearby this tick.",
+        "output":  "Step result: No consumption event. DYNAMICS advances regrow_counter to 4/5. Resource stays inactive. When regrow_counter reaches 5, DYNAMICS will set active=True and reset the counter.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "dynamics",
+                                      "constraint"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:repair/constraint-sensing",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: CONSTRAINT(scout, sensing_range=40).",
+        "output":  "Problem: sensing belongs to EPISTEMIC, not CONSTRAINT. Corrected: EPISTEMIC(scout senses targets, radius=40). Keep CONSTRAINT for bounds or limits.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "repair",
+                                      "epistemic",
+                                      "constraint"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:meta/throttle-spawns",
+        "instruction":  "Describe a META rule that throttles spawning when population is high.",
+        "input":  "",
+        "output":  "META watches ONTOLOGY(kind=Prey) count. If count \u003e 50, META disables spawn handlers or rejects new spawn relations. When count falls below threshold, META re-enables spawning. This is rules-about-rules: it controls which creation relations are allowed.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "ontology",
+                                      "constraint"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:explain/multi-room",
+        "instruction":  "Explain this RP world in natural language.",
+        "input":  "Entities: Agent a, Door d, Room R1, Room R2. Relations: GEOMETRY(a inside R1); GEOMETRY(d connects R1 to R2); CONSTRAINT(d locked=True); EPISTEMIC(a knows lock_state via keycard); META(on unlock event =\u003e set CONSTRAINT(d locked=False)); DYNAMICS(a, move_to=R2 when d unlocked).",
+        "output":  "An agent is in Room 1. A door connects Room 1 and Room 2 but starts locked. The agent can read the lock state via epistemic access (keycard). A META handler will unlock the door when an unlock event occurs, flipping the constraint. Once unlocked, the agent’s dynamics let it move to Room 2.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "explanation",
+                                      "geometry",
+                                      "constraint",
+                                      "epistemic",
+                                      "meta",
+                                      "dynamics"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:evaluator/energy-and-bounds",
+        "instruction":  "Run one evaluator step for a fast agent near bounds with energy drain.",
+        "input":  "Entities: Runner r at (398,10), velocity=(5,0), energy=3. Relations: DYNAMICS(r, velocity=(5,0), energy_drain=2); CONSTRAINT(r, bounds=[0,0,400,400], clamp=True); ONTOLOGY(r, kind=Runner).",
+        "output":  "Step result: Proposed position (403,10) exceeds x-bound; CONSTRAINT clamps x to 400 (velocity may reset to 0 if clamp absorbs motion). DYNAMICS applies energy drain: energy=1. State after step: pos≈(400,10), energy=1, velocity adjusted per clamp rule.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "constraint",
+                                      "dynamics",
+                                      "geometry",
+                                      "ontology"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:translation/observer-drone",
+        "instruction":  "Translate this observer drone spec into RP relations.",
+        "input":  "An observer drone hovers over a grid, streams positions of all agents it senses within 60 units to a dashboard, and is not allowed to change agents’ states.",
+        "output":  "Entities: Drone o, Agents a*. Relations: EPISTEMIC(o senses a, radius=60, stream_to=dashboard); GEOMETRY(o at altitude, covering grid); CONSTRAINT(o, no_state_write=True); ONTOLOGY(o, kind=ObserverDrone); ONTOLOGY(a, kind=Agent). No DYNAMICS on agents from o (read-only).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "translation",
+                                      "epistemic",
+                                      "geometry",
+                                      "constraint",
+                                      "ontology"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:meta/propagate-locks",
+        "instruction":  "Describe a META rule that propagates lock state changes to dependent constraints.",
+        "input":  "",
+        "output":  "META listens for CONSTRAINT(lock_state) changes on doors. When a door unlocks, META updates related CONSTRAINT relations (e.g., path accessibility, agent move permissions) and removes any blocking constraints on those paths. When relocked, META restores the blocking constraints. This keeps movement constraints consistent with lock state.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "constraint",
+                                      "geometry"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:evaluator/occlusion-fail",
+        "instruction":  "Run one evaluator step where geometry blocks sensing but not proximity.",
+        "input":  "Entities: Guard g at (0,0), Intruder i at (8,0), Wall w between them. Relations: GEOMETRY(w blocks line between g and i); GEOMETRY(g near i, radius=10); EPISTEMIC(g senses i, requires_clear_los=True, radius=10); DYNAMICS(g, pursue_if_seen=i, speed=3).",
+        "output":  "Step result: GEOMETRY confirms proximity within 10, but wall blocks line-of-sight. EPISTEMIC fails (no LOS), so DYNAMICS does not move g. Positions unchanged. Constraint unchanged. Next step will remain blocked until geometry changes.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "geometry",
+                                      "epistemic",
+                                      "dynamics"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:repair/meta-sensing",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: META(agent sees enemy, radius=25).",
+        "output":  "Problem: sensing is EPISTEMIC, not META. Corrected: EPISTEMIC(agent senses enemy, radius=25). META should orchestrate rules (e.g., on detection create alert).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "repair",
+                                      "epistemic",
+                                      "meta"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "easy",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:geometry/layout-reason",
+        "instruction":  "Explain how this layout resolves overlaps in RP terms.",
+        "input":  "Entities: Container C (0–600x0–400), Tile t1 at (0,0) size (200,200), Tile t2 at (100,100) size (200,200). Relations: GEOMETRY(t1 inside C); GEOMETRY(t2 inside C); CONSTRAINT(no_overlap=True, resolve_by=grid snap=50); META(layout_engine).",
+        "output":  "Tiles overlap; META layout_engine applies grid snapping with 50px cells. It repositions t2 to the nearest free grid cell that avoids overlap, e.g., (200,0). GEOMETRY updates t2 coordinates; CONSTRAINT no_overlap satisfied. ONTOLOGY unchanged; DYNAMICS not involved.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "geometry",
+                                      "constraint",
+                                      "meta",
+                                      "explanation"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:meta/schema-guard",
+        "instruction":  "Describe a META rule that rejects entities missing mandatory ONTOLOGY or CONSTRAINT fields.",
+        "input":  "",
+        "output":  "META watches creation events. For each new entity, it checks ONTOLOGY(kind present) and required CONSTRAINT (e.g., bounds for physical agents). If missing, META rejects the creation or backfills defaults and emits a warning relation. This enforces schema consistency at runtime.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "ontology",
+                                      "constraint"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:epistemic/visibility-graph",
+        "instruction":  "Translate this visibility graph spec into RP relations.",
+        "input":  "Agents build a visibility graph among themselves if unobstructed within 40 units; edges are removed when walls appear.",
+        "output":  "Entities: Agents a*. Relations: GEOMETRY(walls w* as occluders); META(on geometry change =\u003e recompute visibility graph); For each agent pair (a_i, a_j): if clear LOS and distance\u003c=40, add EPISTEMIC(a_i sees a_j, radius=40) and EPISTEMIC(a_j sees a_i, radius=40); otherwise remove those relations. ONTOLOGY(w, kind=Occluder); ONTOLOGY(a, kind=Agent).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "epistemic",
+                                      "geometry",
+                                      "meta",
+                                      "translation"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:gco/describe-closure",
+        "instruction":  "Describe how GCO closure interacts with RP relations in a tick.",
+        "input":  "",
+        "output":  "During a tick, relations fire (Loop), possibly producing new entities/relations (Production). When Production happens, GCO triggers Closure: stop further firing, apply CONSTRAINT to resolve conflicts, freeze ONTOLOGY identities and DYNAMICS state, and emit Reset for the next loop. GEOMETRY/EPISTEMIC are committed at closure; META orchestrates the trigger. This defines the stopping condition for the tick.",
+        "metadata":  {
+                         "source":  "Relational Primitives/GCO Log Synthesis.md",
+                         "tags":  [
+                                      "meta",
+                                      "constraint",
+                                      "dynamics",
+                                      "geometry",
+                                      "epistemic",
+                                      "ontology"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    },
+    {
+        "id":  "eval:gco/evaluator-step",
+        "instruction":  "Run one evaluator step where production triggers GCO closure.",
+        "input":  "Loop tick: DYNAMICS moves agents; META spawns an entity when a button is pressed. Relations: META(on_button_press =\u003e create entity); META(on production =\u003e trigger GCO); CONSTRAINT(resolve_conflicts=True).",
+        "output":  "Step result: Button press causes META to create a new entity (Production). GCO fires: halt further relation evaluations this tick, run CONSTRAINT to resolve conflicts (e.g., overlapping positions), commit ONTOLOGY/DYNAMICS/GEOMETRY/EPISTEMIC state, then Reset. No more DYNAMICS run after closure this tick.",
+        "metadata":  {
+                         "source":  "Relational Primitives/GCO Log Synthesis.md",
+                         "tags":  [
+                                      "evaluator",
+                                      "meta",
+                                      "constraint",
+                                      "dynamics",
+                                      "geometry",
+                                      "epistemic",
+                                      "ontology"
+                                  ],
+                         "split":  "eval",
+                         "difficulty":  "medium",
+                         "tier":  "eval"
+                     }
+    }
+]

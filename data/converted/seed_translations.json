@@ -1,0 +1,113 @@
+﻿[
+    {
+        "id":  "seed:translate/natural-to-rp",
+        "instruction":  "Translate this natural spec into RP relations.",
+        "input":  "A panel contains two buttons. Clicking â€œAdd Preyâ€ spawns a prey agent at a random position; clicking â€œAdd Predatorâ€ spawns a predator. Agents stay within the 10â€“590 bounds.",
+        "output":  "Entities: panel P, buttons Bp (Add Prey), Bd (Add Predator). Relations: GEOMETRY(Bp inside P, padding=8); GEOMETRY(Bd inside P, padding=8, below= Bp). CONSTRAINT(P, bounds=[10,590]); CONSTRAINT(Bp, bounds=[10,590]); CONSTRAINT(Bd, bounds=[10,590]). META(on_click Bp =\u003e create entity kind=Prey at rand_pos within bounds); META(on_click Bd =\u003e create entity kind=Predator at rand_pos within bounds). ONTOLOGY tags on created entities set their kind.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "translation",
+                                      "geometry",
+                                      "constraint",
+                                      "meta",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:translate/rp-to-natural",
+        "instruction":  "Explain this RP world in natural language without leaving the primitives.",
+        "input":  "Entities: Predator p1, Prey q1. Relations: GEOMETRY(p1 near q1, radius=80); EPISTEMIC(p1 senses q1, radius=80); DYNAMICS(p1, chase_target=q1, speed=2); DYNAMICS(q1, flee_target=p1, speed=1.5); CONSTRAINT(p1, bounds=[10,590]); CONSTRAINT(q1, bounds=[10,590]).",
+        "output":  "A predator and a prey exist. Geometry sets a proximity radius between them; epistemic sensing lets the predator know the preyâ€™s position. Dynamics make the predator move toward the prey and the prey flee. Constraints keep both inside the 10â€“590 box.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "translation",
+                                      "explanation",
+                                      "geometry",
+                                      "epistemic",
+                                      "dynamics",
+                                      "constraint"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:translate/gui-layout",
+        "instruction":  "Translate this GUI layout spec into RP relations.",
+        "input":  "A window has a header at the top, a content panel filling the rest, and a Save button anchored at the bottom right with 12px padding. All widgets stay within the 0â€“800 by 0â€“600 bounds.",
+        "output":  "Entities: window W, header H, content C, button S. Relations: GEOMETRY(H top_of W, height=60); GEOMETRY(C below H, fills_remaining=True, margin=0); GEOMETRY(S inside W, anchor=bottom_right, padding=12). CONSTRAINT(W, bounds=[0,0,800,600]); CONSTRAINT(H, bounds=[0,0,800,600]); CONSTRAINT(C, bounds=[0,0,800,600]); CONSTRAINT(S, bounds=[0,0,800,600]). ONTOLOGY tags for H/C/S as widget kinds.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "translation",
+                                      "geometry",
+                                      "constraint",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:translate/energy-cycle",
+        "instruction":  "Translate this behavior spec into RP relations.",
+        "input":  "Prey wander randomly, lose 1 energy per tick, eat resources when within 5 units to gain 3 energy, and die when energy drops to 0.",
+        "output":  "Entities: Prey p*, Resources r*. Relations: DYNAMICS(p, velocity=random_walk, energy_drain=1); GEOMETRY(p near r, radius=5); CONSTRAINT(r, consumed_when_near=True); DYNAMICS(r, regrow_after=100); CONSTRAINT(p, death_threshold=0, remove_on_death=True); ONTOLOGY(p, kind=Prey); ONTOLOGY(r, kind=Resource).",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "translation",
+                                      "dynamics",
+                                      "geometry",
+                                      "constraint",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:translate/sensing-and-no-fly",
+        "instruction":  "Translate this sensing/constraint spec into RP relations.",
+        "input":  "A drone senses entities within 30 units, reports sightings to a base, cannot enter a rectangular no-fly zone, and loses 2 energy per tick until it docks at the base to recharge.",
+        "output":  "Entities: Drone d, Base b, NoFly zone nf. Relations: EPISTEMIC(d senses any entity, radius=30, report_to=b); GEOMETRY(d avoids nf, exclusion=True); CONSTRAINT(d, bounds=[0,0,500,500]); CONSTRAINT(nf, region=[200,200,300,300]); DYNAMICS(d, energy_drain=2, recharge_at=b); ONTOLOGY(d, kind=Drone); ONTOLOGY(b, kind=Base); ONTOLOGY(nf, kind=Zone).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "translation",
+                                      "epistemic",
+                                      "geometry",
+                                      "constraint",
+                                      "dynamics",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:translate/compose-entity-kinds",
+        "instruction":  "Translate this composition spec into RP relations.",
+        "input":  "A factory has robots of kind Assembler and Inspectors. Assemblers carry Tool modules; Inspectors carry Sensor modules. All operate on a line within bounds 0â€“1000 by 0â€“200. Assemblers create items; Inspectors flag defective items when sensors detect anomalies within 5 units.",
+        "output":  "Entities: Factory F, Robots a* (Assembler), i* (Inspector), Tool modules t*, Sensor modules s*, Items x*. Relations: ONTOLOGY(a, kind=Assembler); ONTOLOGY(i, kind=Inspector); ONTOLOGY(t, kind=Tool); ONTOLOGY(s, kind=Sensor); GEOMETRY(t attached_to a); GEOMETRY(s attached_to i); CONSTRAINT(a, bounds=[0,0,1000,200]); CONSTRAINT(i, bounds=[0,0,1000,200]); DYNAMICS(a, create_item=x_new at station); EPISTEMIC(i senses anomalies on x within 5); META(on anomaly =\u003e CONSTRAINT(x, defective=True)).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "translation",
+                                      "ontology",
+                                      "geometry",
+                                      "epistemic",
+                                      "constraint",
+                                      "dynamics",
+                                      "meta"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    }
+]

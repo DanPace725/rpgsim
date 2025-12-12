@@ -1,0 +1,142 @@
+﻿[
+    {
+        "id":  "seed:reason/evaluator-step",
+        "instruction":  "Run one evaluator step. Show resulting state changes.",
+        "input":  "Entities: Resource r1 at (100,100) with active=True; Prey q1 at (102,103), energy=10. Relations: GEOMETRY(q1 near r1, radius=5); DYNAMICS(q1, energy_drain=1); DYNAMICS(r1, regrow_after=100); CONSTRAINT(r1, consumed_when_near=True).",
+        "output":  "Step result: GEOMETRY detects proximity. CONSTRAINT marks r1 consumed â†’ r1.active=False. DYNAMICS on q1: energy=9 after drain, plus grazing bonus (+2) from consumption â‡’ energy=11. DYNAMICS on r1 schedules regrow timer toward 100 ticks (state regrow_counter=1).",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "evaluator",
+                                      "reasoning",
+                                      "geometry",
+                                      "constraint",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:reason/button-click-spawn",
+        "instruction":  "Run one evaluator step for a button click that spawns an entity.",
+        "input":  "Event: click on Add Prey button Bp. Entities: Panel P (bounds 0â€“600), Button Bp inside P. Relations: GEOMETRY(Bp inside P, padding=8); CONSTRAINT(P, bounds=[0,600]); CONSTRAINT(Bp, bounds=[0,600]); META(on_click Bp =\u003e create Prey with random position in bounds, energy=12); ONTOLOGY(Bp, kind=Button).",
+        "output":  "Step result: META triggers on click, creates new entity p_new. ONTOLOGY sets p_new kind=Prey. GEOMETRY assigns p_new position within [0,600]. CONSTRAINT applies bounds to p_new. DYNAMICS default for Prey (energy_drain=1) is attached if defined globally; state p_new.energy=12. Existing entities unchanged.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "evaluator",
+                                      "meta",
+                                      "ontology",
+                                      "geometry",
+                                      "constraint",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:reason/predator-hunt-step",
+        "instruction":  "Run one evaluator step for predator hunting two prey.",
+        "input":  "Entities: Predator p1 at (50,50), energy=20; Prey q1 at (80,50), q2 at (200,50). Relations: GEOMETRY(p1 near q1, radius=80); GEOMETRY(p1 near q2, radius=80); EPISTEMIC(p1 senses prey within 80); DYNAMICS(p1, chase_nearest=True, speed=2, energy_drain=2); CONSTRAINT(p1, bounds=[0,300]).",
+        "output":  "Step result: EPISTEMIC observes prey; GEOMETRY distances pick q1 as nearest. DYNAMICS moves p1 toward q1 by speed 2 (new position ~ (52,50)), energy drops to 18. CONSTRAINT clamps position if needed (not triggered). No capture yet; hunting relation persists for next step.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "evaluator",
+                                      "geometry",
+                                      "epistemic",
+                                      "dynamics",
+                                      "constraint"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:reason/boundary-clamp",
+        "instruction":  "Run one evaluator step where an agent hits a boundary.",
+        "input":  "Entities: Agent a at (798,100), velocity=(5,0). Relations: DYNAMICS(a, velocity=(5,0)); CONSTRAINT(a, bounds=[0,0,800,600], clamp=True); GEOMETRY(a inside world).",
+        "output":  "Step result: Proposed position is (803,100); CONSTRAINT clamps x to 800. Final position (800,100). If clamp resets velocity, set vx=0; otherwise keep vx=5 for next step. DYNAMICS applies no other changes this tick.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "constraint",
+                                      "geometry",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:reason/epistemic-gating",
+        "instruction":  "Run one evaluator step where movement depends on sensing.",
+        "input":  "Entities: Scout s at (0,0), Target t at (40,0). Relations: EPISTEMIC(s senses t, radius=30); DYNAMICS(s, move_toward_if_seen=t, speed=3); CONSTRAINT(s, bounds=[0,0,100,100]).",
+        "output":  "Step result: EPISTEMIC fails (distance 40 \u003e 30), so DYNAMICS does not move s. Position stays (0,0). CONSTRAINT not triggered. State unchanged for next step.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "epistemic",
+                                      "dynamics",
+                                      "constraint"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:reason/occluded-vision",
+        "instruction":  "Run one evaluator step where occlusion blocks sensing but not proximity.",
+        "input":  "Entities: Agent a at (0,0), Target t at (10,0), Wall w between them. Relations: GEOMETRY(w blocks line between a and t); GEOMETRY(a near t, radius=12); EPISTEMIC(a senses t, requires_clear_los=True, radius=12); DYNAMICS(a, move_toward_if_seen=t, speed=2).",
+        "output":  "Step result: GEOMETRY reports proximity within 12, but occluder w blocks line-of-sight. EPISTEMIC fails (no clear LOS), so DYNAMICS does not move a. Positions unchanged. If META recomputes visibility graphs, epistemic relation would remain inactive until geometry changes.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "geometry",
+                                      "epistemic",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:reason/conservation-check",
+        "instruction":  "Run one evaluator step with a conservation constraint and adjustment.",
+        "input":  "Entities: Battery b with energy=50; Agent a draws energy=10 this tick. Relations: DYNAMICS(a, energy_drain=10); CONSTRAINT(total_energy=50, adjust_reservoir=True); META(conservation_guard enabled).",
+        "output":  "Step result: DYNAMICS would reduce b.energy to 40. CONSTRAINT+META conservation_guard compares total energy to baseline (50); detects shortfall of 10. It adds 10 to a reservoir entity (or rejects the overdraw if no reservoir). State: b.energy=40; reservoir.energy increased by 10; total remains 50.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "constraint",
+                                      "dynamics",
+                                      "meta"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:reason/layout-resolution",
+        "instruction":  "Run one evaluator step resolving overlapping GUI elements.",
+        "input":  "Entities: Panel P (0â€“400x0â€“300), Buttons b1 at (10,10) size (100,30), b2 at (50,20) size (120,30). Relations: GEOMETRY(b1 inside P); GEOMETRY(b2 inside P); CONSTRAINT(no_overlap=True, resolve_by=stack_vertical); META(layout_engine enabled).",
+        "output":  "Step result: META layout_engine detects overlap between b1 and b2. Using resolve_by=stack_vertical, it adjusts b2 position to (10, 10+30+8)= (10,48) with spacing 8. GEOMETRY updates b2 coords; CONSTRAINT satisfied (no overlap). DYNAMICS unchanged.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "evaluator",
+                                      "geometry",
+                                      "constraint",
+                                      "meta"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    }
+]

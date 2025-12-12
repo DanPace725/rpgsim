@@ -1,0 +1,99 @@
+﻿[
+    {
+        "id":  "seed:repair/primitive-misuse",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: CONSTRAINT(predator, chase_target=prey, speed=2).",
+        "output":  "Problem: chasing is a state transition, not a boundary. Use DYNAMICS. Corrected: DYNAMICS(predator, chase_target=prey, speed=2). Keep CONSTRAINT only for bounds or limits if needed.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "repair",
+                                      "dynamics",
+                                      "constraint"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:repair/geometry-vs-epistemic",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: GEOMETRY(prey senses predator, radius=60).",
+        "output":  "Problem: sensing is epistemic, not spatial structure. Use EPISTEMIC for knowledge, keep GEOMETRY for positions/distances. Corrected: EPISTEMIC(prey senses predator, radius=60); optional GEOMETRY(prey near predator, radius=60) if spatial proximity is also required.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "repair",
+                                      "epistemic",
+                                      "geometry"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:repair/missing-ontology",
+        "instruction":  "Identify and fix the missing ONTOLOGY tag.",
+        "input":  "META(on_click button =\u003e create entity with velocity=1, energy=5).",
+        "output":  "Problem: created entity has no identity/kind. Add ONTOLOGY. Corrected: META(on_click button =\u003e create entity e_new); ONTOLOGY(e_new, kind=Prey); DYNAMICS(e_new, velocity=1, energy_drain=1, energy=5).",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "repair",
+                                      "ontology",
+                                      "dynamics",
+                                      "meta"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:repair/meta-vs-epistemic",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: META(predator senses prey, radius=50).",
+        "output":  "Problem: sensing is EPISTEMIC, not META. Corrected: EPISTEMIC(predator senses prey, radius=50). META should watch events (e.g., on_capture create new prey) rather than encode perception.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "repair",
+                                      "epistemic",
+                                      "meta"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:repair/dynamics-vs-constraint",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: DYNAMICS(agent, bounds=[0,500]).",
+        "output":  "Problem: bounds are constraints, not state transitions. Corrected: CONSTRAINT(agent, bounds=[0,500]); keep DYNAMICS for movement or energy changes.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "repair",
+                                      "constraint",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    },
+    {
+        "id":  "seed:repair/epistemic-vs-geometry-occlusion",
+        "instruction":  "Identify and fix the primitive misuse.",
+        "input":  "Relations: EPISTEMIC(agent behind wall blocks movement).",
+        "output":  "Problem: occlusion is geometric, not epistemic. Use GEOMETRY to represent the wall and blocking; use EPISTEMIC for what can be sensed. Corrected: GEOMETRY(wall blocks line between agent and target); EPISTEMIC(agent senses target, blocked_by=wall).",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "repair",
+                                      "geometry",
+                                      "epistemic"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "easy"
+                     }
+    }
+]

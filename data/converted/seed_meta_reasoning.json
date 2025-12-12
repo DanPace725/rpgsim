@@ -1,0 +1,106 @@
+﻿[
+    {
+        "id":  "seed:meta/rules-about-rules",
+        "instruction":  "Describe how META operates in the ecosystem demo.",
+        "input":  "",
+        "output":  "META watches GUI events and relation outcomes to create or modify relations/entities. Example: on button click, META creates a new Prey or Predator entity, attaches ONTOLOGY kind, sets GEOMETRY position, CONSTRAINT bounds, and DYNAMICS/EPISTEMIC relations. META can also spawn hunting relations on-the-fly between new predators and existing prey.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "meta",
+                                      "ontology",
+                                      "geometry",
+                                      "constraint",
+                                      "dynamics",
+                                      "epistemic"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:meta/auto-linking",
+        "instruction":  "Explain a META rule that auto-adds hunting relations when new prey appear.",
+        "input":  "",
+        "output":  "META listens for ONTOLOGY(kind=Prey) creations. When a new prey q_new appears, META creates GEOMETRY(predator near q_new, radius=80), EPISTEMIC(predator senses q_new), and DYNAMICS(predator, chase_target=q_new) for each predator. This keeps the hunting graph updated without manual wiring.",
+        "metadata":  {
+                         "source":  "Relational Primitives/Ecosystem demo.md",
+                         "tags":  [
+                                      "meta",
+                                      "ontology",
+                                      "geometry",
+                                      "epistemic",
+                                      "dynamics"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:meta/occlusion-graph",
+        "instruction":  "Describe a META rule that builds visibility graphs when walls change.",
+        "input":  "",
+        "output":  "META watches GEOMETRY changes to occluder entities (walls). On change, META rebuilds EPISTEMIC visibility relations: for each agent pair, if line-of-sight is clear per current GEOMETRY, set EPISTEMIC(agent sees target, radius=los_distance); otherwise remove that sensing relation. This keeps epistemic knowledge consistent with geometry edits.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "geometry",
+                                      "epistemic"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:meta/conservation-guard",
+        "instruction":  "Describe a META rule that enforces conservation when dynamics update energy.",
+        "input":  "",
+        "output":  "META hooks DYNAMICS updates to energy. After each step, it sums energy across entities and checks CONSTRAINT(total_energy == baseline). If violated, META adjusts a global reservoir entity to compensate, or rejects the violating DYNAMICS update. This is a rule-about-rules ensuring conservation constraints hold.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "constraint",
+                                      "dynamics",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:meta/safety-throttle",
+        "instruction":  "Describe a META rule that throttles actuation when safety constraints are breached.",
+        "input":  "",
+        "output":  "META monitors CONSTRAINT(safety_ok) on actuators. If safety_ok=False, META disables or caps DYNAMICS commands (e.g., velocity\u003c=0) and injects CONSTRAINT(no_actuation=True) until safety_ok=True. When cleared, META restores original DYNAMICS. This keeps actuation rules bound to safety constraints.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "constraint",
+                                      "dynamics",
+                                      "ontology"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    },
+    {
+        "id":  "seed:meta/schema-enforcer",
+        "instruction":  "Describe a META rule that enforces ONTOLOGY schemas on new entities.",
+        "input":  "",
+        "output":  "META listens for entity creation. For each new entity, it checks ONTOLOGY kind against a schema table; if required relations are missing (e.g., GEOMETRY position, CONSTRAINT bounds), META adds them or rejects the creation. This keeps worlds consistent with declared kinds.",
+        "metadata":  {
+                         "source":  "Constructed",
+                         "tags":  [
+                                      "meta",
+                                      "ontology",
+                                      "geometry",
+                                      "constraint"
+                                  ],
+                         "split":  "seed",
+                         "difficulty":  "medium"
+                     }
+    }
+]
