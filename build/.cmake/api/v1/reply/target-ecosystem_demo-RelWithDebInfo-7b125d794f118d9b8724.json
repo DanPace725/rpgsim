@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MinSizeRel/ecosystem_demo.exe"
+			"path" : "RelWithDebInfo/ecosystem_demo.exe"
 		},
 		{
-			"path" : "MinSizeRel/ecosystem_demo.pdb"
+			"path" : "RelWithDebInfo/ecosystem_demo.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -78,7 +78,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /O1 /Ob1 /DNDEBUG -std:c++17 -MD"
+					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /O2 /Ob1 /DNDEBUG -std:c++17 -MD"
 				},
 				{
 					"backtrace" : 4,
@@ -110,11 +110,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 3,
 			"id" : "rpe_core::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "ecosystem_demo::@6890427a1f51a3e7e1df",
@@ -137,11 +137,11 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /O1 /Ob1 /DNDEBUG -MD",
+				"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /O2 /Ob1 /DNDEBUG -MD",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /INCREMENTAL:NO",
+				"fragment" : "/machine:x64 /debug /INCREMENTAL",
 				"role" : "flags"
 			},
 			{
@@ -150,7 +150,7 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "MinSizeRel\\rpe_core.lib",
+				"fragment" : "RelWithDebInfo\\rpe_core.lib",
 				"role" : "libraries"
 			},
 			{
