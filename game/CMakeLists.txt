@@ -24,6 +24,7 @@ set(CORE_SOURCES
     src/core/RPEngine.cpp
     src/spatial/SpatialIndex.cpp
     src/primitives/EntityTemplates.cpp
+    src/utils/JsonLoader.cpp
 )
 
 # Create the RPE core library

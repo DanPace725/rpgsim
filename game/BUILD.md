@@ -5,7 +5,7 @@
 You'll need the following tools installed:
 
 ### Windows
-- **CMake** (3.15+): Download from https://cmake.org/download/
+- **CMake** (3.15+): Download from https://cmacmke.org/download/
 - **C++ Compiler** - Choose one:
   - Visual Studio 2017+ (includes MSVC compiler)
   - MinGW-w64 (GCC for Windows)

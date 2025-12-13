@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "name": "Forest Ecosystem",
+    "description": "A complex forest ecosystem demonstrating the full range of RP primitives and relationships",
+    "version": "1.0"
+  },
+  "nodes": [
+    { "id": "sun", "type": "energy", "label": "Sun", "rp": { "P1_identity": 1.0, "P2_dynamics": 0.9, "P3_geometry": 0.1, "P4_constraints": 0.0, "P5_epistemic": 1.0, "P6_meta": 0.8 } },
+    { "id": "atmosphere", "type": "system", "label": "Atmosphere", "rp": { "P1_identity": 0.7, "P2_dynamics": 0.6, "P3_geometry": 0.9, "P4_constraints": 0.3, "P5_epistemic": 0.4, "P6_meta": 0.5 } },
+    { "id": "rain", "type": "process", "label": "Rainfall", "rp": { "P1_identity": 0.4, "P2_dynamics": 0.8, "P3_geometry": 0.5, "P4_constraints": 0.2, "P5_epistemic": 0.6, "P6_meta": 0.2 } },
+    
+    { "id": "soil", "type": "substrate", "label": "Forest Soil", "rp": { "P1_identity": 0.8, "P2_dynamics": 0.1, "P3_geometry": 0.7, "P4_constraints": 0.9, "P5_epistemic": 0.3, "P6_meta": 0.4 } },
+    { "id": "minerals", "type": "resource", "label": "Minerals", "rp": { "P1_identity": 0.6, "P2_dynamics": 0.05, "P3_geometry": 0.8, "P4_constraints": 1.0, "P5_epistemic": 0.2, "P6_meta": 0.1 } },
+    { "id": "water_table", "type": "resource", "label": "Groundwater", "rp": { "P1_identity": 0.5, "P2_dynamics": 0.3, "P3_geometry": 0.9, "P4_constraints": 0.7, "P5_epistemic": 0.1, "P6_meta": 0.2 } },
+    
+    { "id": "oak_tree", "type": "producer", "label": "Oak Tree", "rp": { "P1_identity": 0.9, "P2_dynamics": 0.2, "P3_geometry": 0.6, "P4_constraints": 0.8, "P5_epistemic": 0.7, "P6_meta": 0.5 } },
+    { "id": "pine_tree", "type": "producer", "label": "Pine Tree", "rp": { "P1_identity": 0.85, "P2_dynamics": 0.15, "P3_geometry": 0.7, "P4_constraints": 0.85, "P5_epistemic": 0.6, "P6_meta": 0.4 } },
+    { "id": "maple_tree", "type": "producer", "label": "Maple Tree", "rp": { "P1_identity": 0.88, "P2_dynamics": 0.25, "P3_geometry": 0.65, "P4_constraints": 0.75, "P5_epistemic": 0.65, "P6_meta": 0.45 } },
+    { "id": "ferns", "type": "producer", "label": "Ferns", "rp": { "P1_identity": 0.5, "P2_dynamics": 0.3, "P3_geometry": 0.4, "P4_constraints": 0.4, "P5_epistemic": 0.5, "P6_meta": 0.2 } },
+    { "id": "moss", "type": "producer", "label": "Moss", "rp": { "P1_identity": 0.4, "P2_dynamics": 0.1, "P3_geometry": 0.3, "P4_constraints": 0.6, "P5_epistemic": 0.3, "P6_meta": 0.1 } },
+    { "id": "mushrooms", "type": "decomposer", "label": "Mushrooms", "rp": { "P1_identity": 0.6, "P2_dynamics": 0.4, "P3_geometry": 0.5, "P4_constraints": 0.5, "P5_epistemic": 0.2, "P6_meta": 0.6 } },
+    { "id": "mycorrhizae", "type": "symbiont", "label": "Mycorrhizal Network", "rp": { "P1_identity": 0.3, "P2_dynamics": 0.5, "P3_geometry": 0.9, "P4_constraints": 0.7, "P5_epistemic": 0.1, "P6_meta": 0.9 } },
+    
+    { "id": "acorns", "type": "resource", "label": "Acorns", "rp": { "P1_identity": 0.5, "P2_dynamics": 0.1, "P3_geometry": 0.3, "P4_constraints": 0.2, "P5_epistemic": 0.8, "P6_meta": 0.3 } },
+    { "id": "pine_cones", "type": "resource", "label": "Pine Cones", "rp": { "P1_identity": 0.45, "P2_dynamics": 0.1, "P3_geometry": 0.35, "P4_constraints": 0.25, "P5_epistemic": 0.7, "P6_meta": 0.25 } },
+    { "id": "berries", "type": "resource", "label": "Berries", "rp": { "P1_identity": 0.4, "P2_dynamics": 0.3, "P3_geometry": 0.2, "P4_constraints": 0.1, "P5_epistemic": 0.9, "P6_meta": 0.2 } },
+    { "id": "nectar", "type": "resource", "label": "Nectar", "rp": { "P1_identity": 0.3, "P2_dynamics": 0.5, "P3_geometry": 0.2, "P4_constraints": 0.1, "P5_epistemic": 0.6, "P6_meta": 0.15 } },
+    
+    { "id": "squirrel", "type": "consumer", "label": "Squirrel", "rp": { "P1_identity": 0.7, "P2_dynamics": 0.9, "P3_geometry": 0.5, "P4_constraints": 0.3, "P5_epistemic": 0.8, "P6_meta": 0.3 } },
+    { "id": "deer", "type": "consumer", "label": "White-tailed Deer", "rp": { "P1_identity": 0.8, "P2_dynamics": 0.7, "P3_geometry": 0.6, "P4_constraints": 0.4, "P5_epistemic": 0.9, "P6_meta": 0.4 } },
+    { "id": "rabbit", "type": "consumer", "label": "Rabbit", "rp": { "P1_identity": 0.6, "P2_dynamics": 0.85, "P3_geometry": 0.4, "P4_constraints": 0.2, "P5_epistemic": 0.7, "P6_meta": 0.2 } },
+    { "id": "mouse", "type": "consumer", "label": "Field Mouse", "rp": { "P1_identity": 0.5, "P2_dynamics": 0.95, "P3_geometry": 0.3, "P4_constraints": 0.15, "P5_epistemic": 0.5, "P6_meta": 0.15 } },
+    { "id": "songbirds", "type": "consumer", "label": "Songbirds", "rp": { "P1_identity": 0.65, "P2_dynamics": 0.9, "P3_geometry": 0.7, "P4_constraints": 0.2, "P5_epistemic": 0.85, "P6_meta": 0.35 } },
+    { "id": "woodpecker", "type": "consumer", "label": "Woodpecker", "rp": { "P1_identity": 0.7, "P2_dynamics": 0.8, "P3_geometry": 0.6, "P4_constraints": 0.5, "P5_epistemic": 0.75, "P6_meta": 0.4 } },
+    { "id": "bees", "type": "pollinator", "label": "Bees", "rp": { "P1_identity": 0.6, "P2_dynamics": 0.85, "P3_geometry": 0.8, "P4_constraints": 0.6, "P5_epistemic": 0.7, "P6_meta": 0.7 } },
+    { "id": "butterflies", "type": "pollinator", "label": "Butterflies", "rp": { "P1_identity": 0.55, "P2_dynamics": 0.8, "P3_geometry": 0.7, "P4_constraints": 0.3, "P5_epistemic": 0.9, "P6_meta": 0.4 } },
+    { "id": "earthworms", "type": "decomposer", "label": "Earthworms", "rp": { "P1_identity": 0.4, "P2_dynamics": 0.4, "P3_geometry": 0.5, "P4_constraints": 0.7, "P5_epistemic": 0.1, "P6_meta": 0.5 } },
+    { "id": "beetles", "type": "decomposer", "label": "Beetles", "rp": { "P1_identity": 0.5, "P2_dynamics": 0.6, "P3_geometry": 0.4, "P4_constraints": 0.5, "P5_epistemic": 0.3, "P6_meta": 0.35 } },
+    
+    { "id": "fox", "type": "predator", "label": "Red Fox", "rp": { "P1_identity": 0.85, "P2_dynamics": 0.8, "P3_geometry": 0.7, "P4_constraints": 0.5, "P5_epistemic": 0.95, "P6_meta": 0.6 } },
+    { "id": "owl", "type": "predator", "label": "Great Horned Owl", "rp": { "P1_identity": 0.8, "P2_dynamics": 0.6, "P3_geometry": 0.8, "P4_constraints": 0.6, "P5_epistemic": 0.98, "P6_meta": 0.7 } },
+    { "id": "hawk", "type": "predator", "label": "Red-tailed Hawk", "rp": { "P1_identity": 0.8, "P2_dynamics": 0.75, "P3_geometry": 0.9, "P4_constraints": 0.5, "P5_epistemic": 0.95, "P6_meta": 0.65 } },
+    { "id": "snake", "type": "predator", "label": "Black Rat Snake", "rp": { "P1_identity": 0.7, "P2_dynamics": 0.5, "P3_geometry": 0.6, "P4_constraints": 0.45, "P5_epistemic": 0.6, "P6_meta": 0.3 } },
+    
+    { "id": "wolf", "type": "apex", "label": "Gray Wolf", "rp": { "P1_identity": 0.95, "P2_dynamics": 0.85, "P3_geometry": 0.8, "P4_constraints": 0.7, "P5_epistemic": 0.9, "P6_meta": 0.85 } },
+    { "id": "bear", "type": "apex", "label": "Black Bear", "rp": { "P1_identity": 0.92, "P2_dynamics": 0.6, "P3_geometry": 0.75, "P4_constraints": 0.8, "P5_epistemic": 0.85, "P6_meta": 0.9 } },
+    
+    { "id": "stream", "type": "water", "label": "Forest Stream", "rp": { "P1_identity": 0.6, "P2_dynamics": 0.7, "P3_geometry": 0.95, "P4_constraints": 0.8, "P5_epistemic": 0.7, "P6_meta": 0.5 } },
+    { "id": "pond", "type": "water", "label": "Forest Pond", "rp": { "P1_identity": 0.55, "P2_dynamics": 0.3, "P3_geometry": 0.85, "P4_constraints": 0.9, "P5_epistemic": 0.6, "P6_meta": 0.4 } },
+    { "id": "fish", "type": "consumer", "label": "Trout", "rp": { "P1_identity": 0.65, "P2_dynamics": 0.75, "P3_geometry": 0.5, "P4_constraints": 0.4, "P5_epistemic": 0.5, "P6_meta": 0.25 } },
+    { "id": "frogs", "type": "consumer", "label": "Frogs", "rp": { "P1_identity": 0.55, "P2_dynamics": 0.7, "P3_geometry": 0.45, "P4_constraints": 0.35, "P5_epistemic": 0.6, "P6_meta": 0.3 } },
+    
+    { "id": "dead_matter", "type": "resource", "label": "Leaf Litter", "rp": { "P1_identity": 0.2, "P2_dynamics": 0.05, "P3_geometry": 0.6, "P4_constraints": 0.8, "P5_epistemic": 0.1, "P6_meta": 0.3 } },
+    { "id": "decomposition", "type": "process", "label": "Decomposition", "rp": { "P1_identity": 0.3, "P2_dynamics": 0.5, "P3_geometry": 0.4, "P4_constraints": 0.6, "P5_epistemic": 0.2, "P6_meta": 0.8 } },
+    { "id": "nutrient_cycle", "type": "process", "label": "Nutrient Cycling", "rp": { "P1_identity": 0.25, "P2_dynamics": 0.6, "P3_geometry": 0.7, "P4_constraints": 0.5, "P5_epistemic": 0.15, "P6_meta": 0.95 } },
+    { "id": "photosynthesis", "type": "process", "label": "Photosynthesis", "rp": { "P1_identity": 0.4, "P2_dynamics": 0.8, "P3_geometry": 0.3, "P4_constraints": 0.9, "P5_epistemic": 0.5, "P6_meta": 0.75 } },
+    { "id": "carbon_cycle", "type": "process", "label": "Carbon Cycle", "rp": { "P1_identity": 0.35, "P2_dynamics": 0.55, "P3_geometry": 0.8, "P4_constraints": 0.7, "P5_epistemic": 0.3, "P6_meta": 1.0 } }
+  ],
+  "edges": [
+    { "source": "sun", "target": "photosynthesis", "type": "influence", "weight": 1.0 },
+    { "source": "sun", "target": "atmosphere", "type": "influence", "weight": 0.9 },
+    { "source": "atmosphere", "target": "rain", "type": "influence", "weight": 0.8 },
+    { "source": "rain", "target": "water_table", "type": "influence", "weight": 0.9 },
+    { "source": "rain", "target": "stream", "type": "influence", "weight": 0.85 },
+    { "source": "rain", "target": "pond", "type": "influence", "weight": 0.8 },
+    
+    { "source": "photosynthesis", "target": "oak_tree", "type": "constraint", "weight": 0.95 },
+    { "source": "photosynthesis", "target": "pine_tree", "type": "constraint", "weight": 0.95 },
+    { "source": "photosynthesis", "target": "maple_tree", "type": "constraint", "weight": 0.95 },
+    { "source": "photosynthesis", "target": "ferns", "type": "constraint", "weight": 0.8 },
+    { "source": "photosynthesis", "target": "moss", "type": "constraint", "weight": 0.6 },
+    
+    { "source": "soil", "target": "oak_tree", "type": "constraint", "weight": 0.9 },
+    { "source": "soil", "target": "pine_tree", "type": "constraint", "weight": 0.9 },
+    { "source": "soil", "target": "maple_tree", "type": "constraint", "weight": 0.9 },
+    { "source": "soil", "target": "ferns", "type": "constraint", "weight": 0.7 },
+    { "source": "minerals", "target": "soil", "type": "constraint", "weight": 0.85 },
+    { "source": "water_table", "target": "soil", "type": "influence", "weight": 0.8 },
+    
+    { "source": "oak_tree", "target": "acorns", "type": "influence", "weight": 0.9 },
+    { "source": "pine_tree", "target": "pine_cones", "type": "influence", "weight": 0.85 },
+    { "source": "maple_tree", "target": "nectar", "type": "influence", "weight": 0.7 },
+    { "source": "ferns", "target": "berries", "type": "influence", "weight": 0.6 },
+    
+    { "source": "mycorrhizae", "target": "oak_tree", "type": "info", "weight": 0.9 },
+    { "source": "mycorrhizae", "target": "pine_tree", "type": "info", "weight": 0.9 },
+    { "source": "mycorrhizae", "target": "maple_tree", "type": "info", "weight": 0.85 },
+    { "source": "mycorrhizae", "target": "mushrooms", "type": "constraint", "weight": 0.8 },
+    
+    { "source": "acorns", "target": "squirrel", "type": "influence", "weight": 0.95 },
+    { "source": "berries", "target": "deer", "type": "influence", "weight": 0.7 },
+    { "source": "berries", "target": "songbirds", "type": "influence", "weight": 0.8 },
+    { "source": "acorns", "target": "mouse", "type": "influence", "weight": 0.75 },
+    { "source": "pine_cones", "target": "squirrel", "type": "influence", "weight": 0.6 },
+    { "source": "ferns", "target": "deer", "type": "influence", "weight": 0.5 },
+    { "source": "ferns", "target": "rabbit", "type": "influence", "weight": 0.7 },
+    
+    { "source": "nectar", "target": "bees", "type": "influence", "weight": 0.95 },
+    { "source": "nectar", "target": "butterflies", "type": "influence", "weight": 0.9 },
+    { "source": "bees", "target": "oak_tree", "type": "info", "weight": 0.7 },
+    { "source": "bees", "target": "maple_tree", "type": "info", "weight": 0.75 },
+    { "source": "butterflies", "target": "ferns", "type": "info", "weight": 0.6 },
+    
+    { "source": "oak_tree", "target": "woodpecker", "type": "constraint", "weight": 0.8 },
+    { "source": "oak_tree", "target": "squirrel", "type": "constraint", "weight": 0.85 },
+    { "source": "oak_tree", "target": "owl", "type": "constraint", "weight": 0.7 },
+    { "source": "pine_tree", "target": "songbirds", "type": "constraint", "weight": 0.75 },
+    
+    { "source": "squirrel", "target": "fox", "type": "influence", "weight": 0.7 },
+    { "source": "rabbit", "target": "fox", "type": "influence", "weight": 0.8 },
+    { "source": "mouse", "target": "fox", "type": "influence", "weight": 0.6 },
+    { "source": "mouse", "target": "owl", "type": "influence", "weight": 0.85 },
+    { "source": "mouse", "target": "snake", "type": "influence", "weight": 0.75 },
+    { "source": "mouse", "target": "hawk", "type": "influence", "weight": 0.7 },
+    { "source": "songbirds", "target": "hawk", "type": "influence", "weight": 0.65 },
+    { "source": "rabbit", "target": "hawk", "type": "influence", "weight": 0.6 },
+    { "source": "squirrel", "target": "hawk", "type": "influence", "weight": 0.5 },
+    { "source": "frogs", "target": "snake", "type": "influence", "weight": 0.7 },
+    
+    { "source": "deer", "target": "wolf", "type": "influence", "weight": 0.9 },
+    { "source": "rabbit", "target": "wolf", "type": "influence", "weight": 0.5 },
+    { "source": "deer", "target": "bear", "type": "influence", "weight": 0.4 },
+    { "source": "berries", "target": "bear", "type": "influence", "weight": 0.8 },
+    { "source": "fish", "target": "bear", "type": "influence", "weight": 0.85 },
+    
+    { "source": "stream", "target": "fish", "type": "constraint", "weight": 0.95 },
+    { "source": "stream", "target": "pond", "type": "influence", "weight": 0.7 },
+    { "source": "pond", "target": "frogs", "type": "constraint", "weight": 0.9 },
+    { "source": "pond", "target": "fish", "type": "constraint", "weight": 0.6 },
+    { "source": "stream", "target": "deer", "type": "influence", "weight": 0.5 },
+    { "source": "pond", "target": "deer", "type": "influence", "weight": 0.4 },
+    
+    { "source": "oak_tree", "target": "dead_matter", "type": "influence", "weight": 0.6 },
+    { "source": "pine_tree", "target": "dead_matter", "type": "influence", "weight": 0.5 },
+    { "source": "maple_tree", "target": "dead_matter", "type": "influence", "weight": 0.65 },
+    { "source": "ferns", "target": "dead_matter", "type": "influence", "weight": 0.4 },
+    
+    { "source": "dead_matter", "target": "decomposition", "type": "constraint", "weight": 0.95 },
+    { "source": "decomposition", "target": "mushrooms", "type": "constraint", "weight": 0.9 },
+    { "source": "decomposition", "target": "earthworms", "type": "constraint", "weight": 0.85 },
+    { "source": "decomposition", "target": "beetles", "type": "constraint", "weight": 0.7 },
+    
+    { "source": "earthworms", "target": "soil", "type": "influence", "weight": 0.8 },
+    { "source": "mushrooms", "target": "nutrient_cycle", "type": "influence", "weight": 0.85 },
+    { "source": "decomposition", "target": "nutrient_cycle", "type": "influence", "weight": 0.95 },
+    { "source": "nutrient_cycle", "target": "minerals", "type": "influence", "weight": 0.9 },
+    { "source": "nutrient_cycle", "target": "soil", "type": "influence", "weight": 0.85 },
+    
+    { "source": "photosynthesis", "target": "carbon_cycle", "type": "influence", "weight": 0.9 },
+    { "source": "decomposition", "target": "carbon_cycle", "type": "influence", "weight": 0.8 },
+    { "source": "carbon_cycle", "target": "atmosphere", "type": "influence", "weight": 0.85 },
+    
+    { "source": "wolf", "target": "deer", "type": "constraint", "weight": 0.7 },
+    { "source": "owl", "target": "mouse", "type": "constraint", "weight": 0.6 },
+    { "source": "hawk", "target": "songbirds", "type": "constraint", "weight": 0.5 },
+    { "source": "bear", "target": "wolf", "type": "meta", "weight": 0.4 },
+    { "source": "wolf", "target": "bear", "type": "meta", "weight": 0.4 },
+    
+    { "source": "nutrient_cycle", "target": "photosynthesis", "type": "meta", "weight": 0.9 },
+    { "source": "carbon_cycle", "target": "nutrient_cycle", "type": "meta", "weight": 0.85 }
+  ]
+}
